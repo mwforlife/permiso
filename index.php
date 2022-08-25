@@ -26,6 +26,11 @@
             </div>
         </div>
         <div class="row justify-content-center">
+            <div class="col-lg-4 col-md-10">
+              <a href="validador.apk" class="btn btn-info alert-sucess">Descargar Validador</a>  
+            </div>
+        </div>
+        <div class="row justify-content-center">
             <div class="col-lg-4 col-md-10 mt-3 text-center">
               <button class="btn btn-success">Ingresar</button>
             </div>

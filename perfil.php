@@ -19,6 +19,8 @@ if ($_SESSION['id']) {
 
     QrCode::png($contenido, $filename, $level,$tamanio,$frameSize);
 
+    $_SESSION['codigo'] = $filename;
+
     
 }else{
     header("Location: index.php");
@@ -47,6 +49,7 @@ if ($_SESSION['id']) {
             <div class="col-lg-6 col-md-12 text-center">
               <h3><?php echo $nom?></h3>
               <h4>Muestra Tu Codigo</h4>
+              <a target="_blank" href="<?php echo $filename?>" download="" class="btn btn-outline-danger">Descargar Codigo</a><br/>
               <a href="close.php">Cerrar Sesión</a>
             </div>
         </div> 
