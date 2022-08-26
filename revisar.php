@@ -13,12 +13,13 @@ if (isset($_GET['id']) && isset($_GET['tipo'])) {
         $Objecto = array("result"=>2,"nombre"=>$nom);
         echo json_encode($Objecto);
 
-      }else if($rest==1){
+      }else if($rest["estado"]==1){
+        $est = $rest["estado"];
         $nom = $c->buscardatos($id);
-        $Objecto = array("result"=>1,"nombre"=>$nom);
+        $Objecto = array("result"=>1,"nombre"=>$nom,"foto"=>$rest["foto"]);
         echo json_encode($Objecto);
         
-      }else if($rest==2){
+      }else if($rest["estado"]==2){
         $nom = $c->buscardatos($id);
         $Objecto = array("result"=>2,"nombre"=>$nom);
         echo json_encode($Objecto);
@@ -39,7 +40,7 @@ if (isset($_GET['id']) && isset($_GET['tipo'])) {
         .$nom.
         "
         </div>";
-    }else if($rest==1){
+    }else if($rest["estado"]==1){
         $nom = $c->buscardatos($id);
         $nom .= "<br/>Tiene permiso Habilitado";
         $texto = "<div class='alert alert-success' role='alert'>
@@ -47,7 +48,7 @@ if (isset($_GET['id']) && isset($_GET['tipo'])) {
         .$nom.
         "
         </div>";
-    }else if($rest==2){
+    }else if($rest["estado"]==2){
         $nom = $c->buscardatos($id);
         $nom .= "<br/>No tiene permiso Habilitado";
         $texto = "<div class='alert alert-danger' role='alert'>
@@ -75,7 +76,21 @@ if (isset($_GET['id']) && isset($_GET['tipo'])) {
                     <div class="col-lg-6 col-md-12 d-flex justify-content-center">
                       <img src="https://colegiograneros.cl/img/logo/log.png" width="200" alt="">  
                     </div>
+                </div>
+
+                
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 col-md-12 text-center">';
+                   echo'   <h3>Colegio Graneros - Permiso Salida</h3>
+                    </div>
                 </div> 
+                
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 col-md-12 d-flex justify-content-center">
+                      <img src="https://colegiograneros.cl/img/logo/'.$rest["foto"].'.png" width="200" alt="">  
+                    </div>
+                </div> 
+                
                 <div class="row justify-content-center">
                     <div class="col-lg-6 col-md-12 text-center">';
                    echo"   <h3>$texto</h3>

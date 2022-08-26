@@ -4,15 +4,15 @@
 class Controller{
     private $host = 'localhost';
 
-    /*Variables BD Local */
+    /*Variables BD Local 
     private $user = 'root';
     private $pass = '';
-    private $db = 'gestionescolar';
+    private $db = 'gestionescolar';*/
 
-    /*Variables BD Remota 
+    /*Variables BD Remota */
      private $user = 'colegi38_informatica';
      private $pass = 'informatica2022';
-     private $db = 'colegi38_gestionescolar';*/
+     private $db = 'colegi38_gestionescolar';
     public $mi;
 
     /*Conection Method */
