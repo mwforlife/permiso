@@ -77,12 +77,18 @@ class Controller{
 
  public function verificarPermiso($id){
         $this->conexion();
-        $sql = "select estado from permisos where id_alu=$id";
+        $sql = "select foto, estado from permisos where id_alu=$id";
         $result = $this->mi->query($sql);
         if ($rs = mysqli_fetch_array($result)) {
             $estado = $rs['estado'];
+            $foto = $rs['foto'];
+
+            $datos = [
+                'estado'=> $estado,
+                'foto' => $foto
+            ];
             $this->desconexion();
-            return $estado;
+            return $datos;
         }
 
         $this->desconexion();

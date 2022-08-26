@@ -18,7 +18,7 @@ if ( isset( $_FILES[ 'file_Perimport' ] ) ) {
                 $rut = str_replace(".","",$data[0]);
                 $id = $c->buscaralumno($data[0]);
                 if ($id!=false) {
-                $sql = "insert into permisos values(null, $id, ".$data[1]." );";
+                $sql = "insert into permisos values(null, $id, ".$data[1].",'".$data[1]."' );";
                 $result = $c->query( $sql );
                 }
             }

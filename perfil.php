@@ -4,21 +4,73 @@ require 'controller.php';
 $c = new Controller();
 if ($_SESSION['id']) {
     require 'phpqrcode/qrlib.php';
-    $dir = 'temp/';
-    if (!file_exists($dir)) {
-        mkdir($dir);
-    }
+    
     $id = $_SESSION['id'];
     $nom = $c->buscardatos($id);
-    $filename = $dir."perfil$id.png";
+    $foto = $c->verificarPermiso($id);
 
-    $tamanio = 10;
-    $level = 'M';
-    $frameSize = 3;
-    $contenido = "https://colegiograneros.cl/permiso/revisar.php?id=".$id;
+    $dir = 'temp/';
+
+      if (!file_exists($dir)) {
+        mkdir($dir);
+      }
+      $filename = $dir."perfil$id.png";
+
+      $tamanio = 10;
+      $level = 'M';
+      $frameSize = 3;
+      $contenido = "https://colegiograneros.cl/permiso/revisar.php?id=".$id;
+
+    // Ruta donde se guardarán las imágenes
+    $filepath = 'temp/myimage.png';
+    // Imagen (logotipo) a dibujar
+    $logopath = 'https://colegiograneros.cl/img/logo/log.png';
+    // contenido del código qr
+    $codeContents = 'http://ourcodeworld.com';
+    // Crea el archivo en la ruta proporcionada
+    // Personaliza como quieras
+    QRcode::png($contenido,$filepath , QR_ECLEVEL_H, 20);
+    
+    // Empezar a DIBUJAR LOGO EN QRCODE
+    
+    $QR = imagecreatefrompng($filepath);
+    
+    // EMPEZAR A DIBUJAR LA IMAGEN EN EL CÓDIGO QR
+    $logo = imagecreatefromstring(file_get_contents($logopath));
+    
+    /**
+     *  Arreglo para el fondo transparente
+     */
+    imagecolortransparent($logo , imagecolorallocatealpha($logo , 0, 0, 0, 127));
+    imagealphablending($logo , false);
+    imagesavealpha($logo , true);
+    
+    $QR_width = imagesx($QR);
+    $QR_height = imagesy($QR);
+    
+    $logo_width = imagesx($logo);
+    $logo_height = imagesy($logo);
+    
+    // Escale el logotipo para que quepa en el código QR
+    $logo_qr_width = $QR_width/3;
+    $scale = $logo_width/$logo_qr_width;
+    $logo_qr_height = $logo_height/$scale;
+    
+    imagecopyresampled($QR, $logo, $QR_width/3, $QR_height/3, 0, 0, $logo_qr_width, $logo_qr_height, $logo_width, $logo_height);
+    
+    // Guarde el código QR de nuevo, pero con el logotipo
+    imagepng($QR,$filepath);
+    
+    // Fin DIBUJAR LOGO EN CÓDIGO QR
+    $filename = $filepath;
+    // Imagen de salida en el navegador
+    //echo '<img src="'.$filepath.'" />';
+
+
+/*
 
     QrCode::png($contenido, $filename, $level,$tamanio,$frameSize);
-
+*/
     $_SESSION['codigo'] = $filename;
 
     
@@ -40,17 +92,32 @@ if ($_SESSION['id']) {
   </head>
   <body class="w-100" style="height: 100vh;">
     <div style="height: 100vh;" class="container d-flex flex-column justify-content-center">
-        <div class="row justify-content-center">
+    <div class="row justify-content-center">
             <div class="col-lg-6 col-md-12 d-flex justify-content-center">
-              <img src="<?php echo $filename?>" width="200" alt="">  
+              <img style='border-radius:50%;' src="
+              <?php 
+              if ($foto==false){
+                echo 'https://icon-library.com/images/student-icon/student-icon-15.jpg';
+              }else 
+              {
+                echo 'https://pymstatic.com/44253/conversions/xavier-molina-medium.jpg';
+              }   
+              ?>
+              " width="200" alt="">  
             </div>
         </div> 
         <div class="row justify-content-center">
             <div class="col-lg-6 col-md-12 text-center">
               <h3><?php echo $nom?></h3>
               <h4>Muestra Tu Codigo</h4>
+              <img src="<?php echo $filename?>" width="200" alt="">  <br/>
               <a target="_blank" href="<?php echo $filename?>" download="" class="btn btn-outline-danger">Descargar Codigo</a><br/>
               <a href="close.php">Cerrar Sesión</a>
+            </div>
+        </div> 
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-12 d-flex justify-content-center">
+              
             </div>
         </div> 
     </div>
