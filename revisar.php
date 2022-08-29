@@ -32,6 +32,7 @@ if (isset($_GET['id']) && isset($_GET['tipo'])) {
   if (is_numeric($_GET['id'])) {
     $id = $_GET['id'];
     $rest = $c->verificarPermiso($id);
+    $foto="";
     if ($rest==false) {
         $nom = $c->buscardatos($id);
         $nom .= "<br/> No tiene permiso Habilitado";
@@ -42,6 +43,7 @@ if (isset($_GET['id']) && isset($_GET['tipo'])) {
         </div>";
     }else if($rest["estado"]==1){
         $nom = $c->buscardatos($id);
+        $foto = $rest["foto"];
         $nom .= "<br/>Tiene permiso Habilitado";
         $texto = "<div class='alert alert-success' role='alert'>
         "
@@ -87,7 +89,7 @@ if (isset($_GET['id']) && isset($_GET['tipo'])) {
                 
                 <div class="row justify-content-center">
                     <div class="col-lg-6 col-md-12 d-flex justify-content-center">
-                      <img src="https://colegiograneros.cl/img/logo/'.$rest["foto"].'.png" width="200" alt="">  
+                      <img src="https://colegiograneros.cl/uploads/fotos/permisos/'.$foto.'.png" width="200" alt="">  
                     </div>
                 </div> 
                 

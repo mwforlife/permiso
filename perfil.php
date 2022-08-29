@@ -19,7 +19,7 @@ if ($_SESSION['id']) {
       $tamanio = 10;
       $level = 'M';
       $frameSize = 3;
-      $contenido = "https://colegiograneros.cl/permiso/revisar.php?id=".$id;
+      $contenido = "https://colegiograneros.cl/API/validarJunaeb.php?id=".$id;
 
     // Ruta donde se guardarán las imágenes
     $filepath = 'temp/myimage.png';
