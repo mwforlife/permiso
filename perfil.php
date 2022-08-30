@@ -19,10 +19,10 @@ if ($_SESSION['id']) {
       $tamanio = 10;
       $level = 'M';
       $frameSize = 3;
-      $contenido = "https://colegiograneros.cl/API/validarJunaeb.php?id=".$id;
+      $contenido = "https://colegiograneros.cl/gestionescolar/php/API/validarPermiso.php?id=".$id;
 
     // Ruta donde se guardarán las imágenes
-    $filepath = 'temp/myimage.png';
+    $filepath = $filename;
     // Imagen (logotipo) a dibujar
     $logopath = 'https://colegiograneros.cl/img/logo/log.png';
     // contenido del código qr
