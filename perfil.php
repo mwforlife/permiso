@@ -7,7 +7,7 @@ if ($_SESSION['id']) {
     
     $id = $_SESSION['id'];
     $nom = $c->buscardatos($id);
-    $foto = $c->verificarPermiso($id);
+    $datos = $c->verificarPermiso($id);
 
     $dir = 'temp/';
 
@@ -96,11 +96,11 @@ if ($_SESSION['id']) {
             <div class="col-lg-6 col-md-12 d-flex justify-content-center">
               <img style='border-radius:50%;' src="
               <?php 
-              if ($foto==false){
-                echo 'https://icon-library.com/images/student-icon/student-icon-15.jpg';
+              if ($datos==false){
+                echo 'https://colegiograneros.cl/gestionescolar/uploads/QRPermisos/cara.png';
               }else 
               {
-                echo 'https://pymstatic.com/44253/conversions/xavier-molina-medium.jpg';
+                echo $datos["foto"];
               }   
               ?>
               " width="200" alt="">  
